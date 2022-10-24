@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tictactoe/screens/game.dart';
+import 'package:tictactoe/screens/game3pl.dart';
+import 'package:tictactoe/screens/mainscreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    theme: ThemeData(
+      primarySwatch: Colors.red,
+    ),
+    initialRoute: '/',
+    routes: {
+      '/': (context) => mainPage(),
+      '/2Player': (context) => GameScreen(),
+      '/3Player': (context) => Game3Screen(),
+    },
+  ));
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: GameScreen(),
-    );
-  }
-}
-

@@ -1,29 +1,34 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:tictactoe/constants/colors.dart';
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+import '../constants/colors.dart';
+
+class Game3Screen extends StatefulWidget {
+  const Game3Screen({super.key});
 
   @override
-  State<GameScreen> createState() => _GameScreenState();
+  State<Game3Screen> createState() => _Game3ScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _Game3ScreenState extends State<Game3Screen> {
   bool oTurn = true;
-  List<String> displayXO = ['', '', '', '', '', '', '', '', ''];
+  bool xturn = false;
+  List<String> displayXO = ['', '', '', '', '', '', '', '', '', '', '', ''];
   List<int> matchedIndexes = [];
   String resultDeclaration = '';
   int oscore = 0;
   int xscore = 0;
+  int score3 = 0;
   int filledBoxes = 0;
   bool winnerFound = false;
   int attempts = 0;
 
   bool temp = false;
 
-  static const maxSeconds = 20;
+  static const maxSeconds = 30;
   int seconds = maxSeconds;
   Timer? timer;
 
@@ -33,7 +38,6 @@ class _GameScreenState extends State<GameScreen> {
     letterSpacing: 3,
     fontSize: 20,
   ));
-
 
   void startTimer() {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -81,7 +85,7 @@ class _GameScreenState extends State<GameScreen> {
                           ],
                         ),
                         SizedBox(
-                          width: 20,
+                          width: 17,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -95,6 +99,22 @@ class _GameScreenState extends State<GameScreen> {
                               style: customFontWhite,
                             ),
                           ],
+                        ),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Player &',
+                              style: customFontWhite,
+                            ),
+                            Text(
+                              score3.toString(),
+                              style: customFontWhite,
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -102,9 +122,9 @@ class _GameScreenState extends State<GameScreen> {
               Expanded(
                   flex: 5,
                   child: GridView.builder(
-                    itemCount: 9,
+                    itemCount: 12,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
+                        crossAxisCount: 4),
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () {
@@ -151,8 +171,7 @@ class _GameScreenState extends State<GameScreen> {
                   )),
             ],
           ),
-        )
-        );
+        ));
   }
 
   void _tapped(int index) {
@@ -162,11 +181,17 @@ class _GameScreenState extends State<GameScreen> {
         if (oTurn && displayXO[index] == '') {
           displayXO[index] = 'O';
           filledBoxes++;
-        } else if (!oTurn && displayXO[index] == '') {
+          xturn = true;
+          oTurn = false;
+        } else if (!oTurn && xturn && displayXO[index] == '') {
           displayXO[index] = 'X';
           filledBoxes++;
+          xturn = false;
+        } else if (!oTurn && !xturn && displayXO[index] == '') {
+          displayXO[index] = '&';
+          filledBoxes++;
+          oTurn = true;
         }
-        oTurn = !oTurn;
         _checkWinner();
       });
     }
@@ -182,78 +207,126 @@ class _GameScreenState extends State<GameScreen> {
         _updateScore(displayXO[0]);
         stopTimer();
       });
-
-    } else if (displayXO[3] == displayXO[4] &&
-        displayXO[4] == displayXO[5] &&
-        displayXO[3] != '') {
-      setState(() {
-        resultDeclaration = 'Player ' + displayXO[3] + ' wins';
-        matchedIndexes.addAll([3, 4, 5]);
-        _updateScore(displayXO[3]);
-        stopTimer();
-      });
-
-    } else if (displayXO[6] == displayXO[7] &&
-        displayXO[7] == displayXO[8] &&
-        displayXO[6] != '') {
-      setState(() {
-        resultDeclaration = 'Player ' + displayXO[6] + ' wins';
-        matchedIndexes.addAll([6, 7, 8]);
-        _updateScore(displayXO[6]);
-        stopTimer();
-      });
-
-    } else if (displayXO[0] == displayXO[3] &&
-        displayXO[3] == displayXO[6] &&
-        displayXO[0] != '') {
-      setState(() {
-        resultDeclaration = 'Player ' + displayXO[0] + ' wins';
-        matchedIndexes.addAll([0, 3, 6]);
-        _updateScore(displayXO[0]);
-        stopTimer();
-      });
-
-    } else if (displayXO[1] == displayXO[4] &&
-        displayXO[4] == displayXO[7] &&
+    } else if (displayXO[1] == displayXO[2] &&
+        displayXO[2] == displayXO[3] &&
         displayXO[1] != '') {
       setState(() {
-        resultDeclaration = 'Player ' + displayXO[1] + ' wins';
-        matchedIndexes.addAll([1, 4, 7]);
+        resultDeclaration = 'Player ' + displayXO[1] + ' wins ';
+        matchedIndexes.addAll([1, 2, 3]);
         _updateScore(displayXO[1]);
         stopTimer();
       });
-
-    } else if (displayXO[2] == displayXO[5] &&
-        displayXO[5] == displayXO[8] &&
-        displayXO[2] != '') {
+    } else if (displayXO[4] == displayXO[5] &&
+        displayXO[5] == displayXO[6] &&
+        displayXO[4] != '') {
       setState(() {
-        resultDeclaration = 'Player ' + displayXO[2] + ' wins';
-        matchedIndexes.addAll([2, 5, 8]);
-        _updateScore(displayXO[2]);
+        resultDeclaration = 'Player ' + displayXO[4] + ' wins ';
+        matchedIndexes.addAll([4, 5, 6]);
+        _updateScore(displayXO[4]);
         stopTimer();
       });
-
+    } else if (displayXO[5] == displayXO[6] &&
+        displayXO[6] == displayXO[7] &&
+        displayXO[5] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[5] + ' wins ';
+        matchedIndexes.addAll([5, 6, 7]);
+        _updateScore(displayXO[5]);
+        stopTimer();
+      });
+    } else if (displayXO[8] == displayXO[9] &&
+        displayXO[9] == displayXO[10] &&
+        displayXO[8] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[8] + ' wins ';
+        matchedIndexes.addAll([8, 9, 10]);
+        _updateScore(displayXO[8]);
+        stopTimer();
+      });
+    } else if (displayXO[9] == displayXO[10] &&
+        displayXO[10] == displayXO[11] &&
+        displayXO[9] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[9] + ' wins ';
+        matchedIndexes.addAll([9, 10, 11]);
+        _updateScore(displayXO[9]);
+        stopTimer();
+      });
     } else if (displayXO[0] == displayXO[4] &&
         displayXO[4] == displayXO[8] &&
         displayXO[0] != '') {
       setState(() {
-        resultDeclaration = 'Player ' + displayXO[0] + ' wins';
+        resultDeclaration = 'Player ' + displayXO[0] + ' wins ';
         matchedIndexes.addAll([0, 4, 8]);
         _updateScore(displayXO[0]);
         stopTimer();
       });
-      
-    } else if (displayXO[2] == displayXO[4] &&
-        displayXO[4] == displayXO[6] &&
+    } else if (displayXO[1] == displayXO[5] &&
+        displayXO[5] == displayXO[9] &&
+        displayXO[1] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[1] + ' wins ';
+        matchedIndexes.addAll([1, 5, 9]);
+        _updateScore(displayXO[1]);
+        stopTimer();
+      });
+    } else if (displayXO[2] == displayXO[6] &&
+        displayXO[6] == displayXO[10] &&
         displayXO[2] != '') {
       setState(() {
-        resultDeclaration = 'Player ' + displayXO[2] + ' wins';
-        matchedIndexes.addAll([2, 4, 6]);
+        resultDeclaration = 'Player ' + displayXO[2] + ' wins ';
+        matchedIndexes.addAll([2, 6, 10]);
         _updateScore(displayXO[2]);
         stopTimer();
       });
+    } else if (displayXO[3] == displayXO[7] &&
+        displayXO[7] == displayXO[11] &&
+        displayXO[3] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[3] + ' wins ';
+        matchedIndexes.addAll([3, 7, 11]);
+        _updateScore(displayXO[3]);
+        stopTimer();
+      });
+    } else if (displayXO[0] == displayXO[5] &&
+        displayXO[5] == displayXO[10] &&
+        displayXO[0] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[0] + ' wins ';
+        matchedIndexes.addAll([0, 5, 10]);
+        _updateScore(displayXO[0]);
+        stopTimer();
+      });
+    } else if (displayXO[1] == displayXO[6] &&
+        displayXO[6] == displayXO[11] &&
+        displayXO[1] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[1] + ' wins ';
+        matchedIndexes.addAll([1, 6, 11]);
+        _updateScore(displayXO[1]);
+        stopTimer();
+      });
+    } else if (displayXO[2] == displayXO[5] &&
+        displayXO[5] == displayXO[8] &&
+        displayXO[2] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[2] + ' wins ';
+        matchedIndexes.addAll([2, 5, 8]);
+        _updateScore(displayXO[2]);
+        stopTimer();
+      });
+    } else if (displayXO[3] == displayXO[6] &&
+        displayXO[6] == displayXO[9] &&
+        displayXO[3] != '') {
+      setState(() {
+        resultDeclaration = 'Player ' + displayXO[3] + ' wins ';
+        matchedIndexes.addAll([3, 6, 9]);
+        _updateScore(displayXO[3]);
+        stopTimer();
+      });
     }
-    if (!winnerFound && filledBoxes == 9) {
+
+    if (!winnerFound && filledBoxes == 12) {
       setState(() {
         resultDeclaration = "Nobody Wins !!";
         stopTimer();
@@ -266,13 +339,15 @@ class _GameScreenState extends State<GameScreen> {
       oscore++;
     } else if (winner == 'X') {
       xscore++;
+    } else if (winner == '&') {
+      score3++;
     }
     winnerFound = true;
   }
 
   void _clearBoard() {
     setState(() {
-      for (int i = 0; i < 9; i++) {
+      for (int i = 0; i < 12; i++) {
         displayXO[i] = '';
       }
       resultDeclaration = '';
