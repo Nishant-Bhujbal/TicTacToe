@@ -14,6 +14,7 @@ class mainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 205, 205),
       appBar: AppBar(
         title: Text(
           'Tic-Tac-Toe',
@@ -25,41 +26,45 @@ class mainPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 50.0,
-              width: 100.0,
+            Image.asset("assets/tictactoe.jpg",height: 400,width: 300,fit: BoxFit.cover,),
+            SizedBox(height: 50,),
+            Container(
+              height: 55,
+              width: 200,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/2Player');
                 },
-                child: Text('2 Players'),
+                child: Text('2 Players',
+                style: TextStyle(fontSize: 20.0),),
                 style: ElevatedButton.styleFrom(
                     elevation: 3,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7.0)),
+                        borderRadius: BorderRadius.circular(25.0)),
                     padding: EdgeInsets.all(10.0)),
               ),
             ),
             SizedBox(
               height: 20.0,
             ),
-            SizedBox(
-              height: 50.0,
-              width: 100.0,
+            Container(
+              height: 55,
+              width: 200,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/3Player');
                 },
-                child: Text('3 Players'),
+                child: Text('3 Players',
+                style: TextStyle(fontSize: 20.0),),
                 style: ElevatedButton.styleFrom(
                     elevation: 3,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7.0)),
+                        borderRadius: BorderRadius.circular(25.0)),
                     padding: EdgeInsets.all(10.0)),
               ),
             ),
             SizedBox(
-              height: 20.0,
+              height: 50.0,
             ),
           ],
         ),

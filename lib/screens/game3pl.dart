@@ -65,33 +65,33 @@ class _Game3ScreenState extends State<Game3Screen> {
     return Scaffold(
         backgroundColor: MainColor.primaryColor,
         body: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(5.0),
           child: Column(
             children: [
               Expanded(
                   flex: 1,
                   child: Container(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text('Player O', style: customFontWhite),
+                            Text('PlayerO  ', style: customFontWhite),
                             Text(
                               oscore.toString(),
                               style: customFontWhite,
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 17,
-                        ),
+                        // SizedBox(
+                        //   width: 7,
+                        // ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              'Player X',
+                              'PlayerX  ',
                               style: customFontWhite,
                             ),
                             Text(
@@ -100,14 +100,14 @@ class _Game3ScreenState extends State<Game3Screen> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 17,
-                        ),
+                        // SizedBox(
+                        //   width: 7,
+                        // ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              'Player &',
+                              'Player&',
                               style: customFontWhite,
                             ),
                             Text(
