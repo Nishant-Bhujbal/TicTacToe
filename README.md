@@ -3,7 +3,11 @@
 A new Flutter project.
 
 ## Getting Started
-
+<img src="./assets/screenshots/tictac2.jpg" height="400" width="200">
+<img src="./assets/screenshots/tictac5.jpg" height="400" width="200">
+<img src="./assets/screenshots/tictac1.jpg" height="400" width="200">
+<img src="./assets/screenshots/tictac4.jpg" height="400" width="200">
+<img src="./assets/screenshots/tictac3.jpg" height="400" width="200">
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
